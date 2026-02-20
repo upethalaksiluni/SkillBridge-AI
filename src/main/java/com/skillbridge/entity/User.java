@@ -37,6 +37,13 @@ public class User {
         updatedAt = LocalDateTime.now();
     }
 
+    private int failedAttempt;
+
+    @Column(nullable = false)
+    private boolean accountNonLocked = true;
+
+    private LocalDateTime lockTime;
+
     @PreUpdate
     protected void onUpdate() {
         updatedAt = LocalDateTime.now();

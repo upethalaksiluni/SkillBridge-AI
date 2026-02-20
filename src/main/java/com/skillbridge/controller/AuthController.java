@@ -84,4 +84,14 @@ public class AuthController {
         refreshTokenService.deleteByUserId(user.getUserId());
         return ResponseEntity.ok(Map.of("message", "Log out successful!"));
     }
+
+    @PostMapping("/password/reset")
+    public ResponseEntity<?> resetPassword(@RequestBody java.util.Map<String, String> request) {
+        try {
+            authService.unlockAndResetPassword(request.get("email"), request.get("newPassword"));
+            return ResponseEntity.ok(java.util.Map.of("message", "Password reset successfully. Account is now unlocked."));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 }
